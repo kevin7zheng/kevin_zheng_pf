@@ -231,14 +231,17 @@
                     </form>
                     <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted) {}"></iframe>
 
-                    <script src="assets/js/jquery.min.js"></script>
-<script type="text/javascript">var submitted = false;</script>
-<script type="text/javascript">
-    $('#gform').on('submit', function (e) {
-        $('#gform *').fadeOut(2000);
-        $('#gform').prepend('Your submission has been processed...');
-    });
-</script>
+                    <script type="text/javascript">
+                        var submitted = false;
+                        document.getElementById('gform').addEventListener('submit', function(e) {
+                            submitted = true;
+                            var formElements = this.elements;
+                            for (var i = 0; i < formElements.length; i++) {
+                                formElements[i].style.display = 'none'; // Hide form elements
+                            }
+                            this.insertAdjacentHTML('afterbegin', 'Your submission has been processed...');
+                        });
+                    </script>
                 </div>
 
             </div>
