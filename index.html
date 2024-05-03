@@ -217,21 +217,28 @@
 
                 <div class="col-lg-6">
                     <!-- form fields -->
-                    <form method="post" action="send-email.php">
-                        <label for="name">Name</label>
-                        <input type="text" class="form-control form-control-lg" name="name" id="name" placeholder="Name" required autocomplete="name" aria-required="true">
-                        <label for="email">Email</label>
-                        <input type="email" class="form-control mt-3" name="email" id="email" placeholder="Email" required autocomplete="email" aria-required="true">
-                        <label for="subject">Subject</label>
-                        <input type="text" class="form-control mt-3" name="subject" id="subject" placeholder="Subject" required autocomplete="off" aria-required="true">
+                    <form name="gform" id="gform" enctype="text/plain" 
+                    action="https://docs.google.com/forms/d/e/1FAIpQLSdVOLj0434KwsjGm0mWHSb18Yv4zjDpzYvmEztRV7yzcIiLkA/formResponse?usp=pp_url&entry.2005620554=name&entry.1045781291=kzheng0507@gmail.com&entry.1065046570=subject&entry.839337160=message" 
+                    target="hidden_iframe" onsubmit="submitted=true;">
+                        <input type="text" class="form-control form-control-lg" placeholder="Name" name="entry.2005620554" id="entry.2005620554">
+                        <input type="email" class="form-control mt-3" placeholder="Email" name="entry.1045781291" id="entry.1045781291">
+                        <input type="text" class="form-control mt-3" placeholder="Subject" name="entry.1065046570" id="entry.1065046570">
                         <div class="mb-3 mt-3">
-                            <label for="message">Message</label>
-                            <textarea class="form-control" rows="5" id="message" name="message" placeholder="Message" required autocomplete="off" maxlength="500" aria-required="true"></textarea>
+                            <textarea class="form-control" rows="5" id="comment" name="text" placeholder="Message" name="entry.839337160" id="entry.839337160"></textarea>
                         </div>
                         <br>
                         <button type="submit" class="btn btn-success mt-3">Contact Me</button>
                     </form>
-                    
+                    <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted) {}"></iframe>
+
+                    <script src="assets/js/jquery.min.js"></script>
+<script type="text/javascript">var submitted = false;</script>
+<script type="text/javascript">
+    $('#gform').on('submit', function (e) {
+        $('#gform *').fadeOut(2000);
+        $('#gform').prepend('Your submission has been processed...');
+    });
+</script>
                 </div>
 
             </div>
