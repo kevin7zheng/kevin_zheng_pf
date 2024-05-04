@@ -229,16 +229,16 @@
                         <button type="submit" class="btn btn-success mt-3" value="Submit">Contact Me</button>
                     </form>
                     <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
-
+                    <!--hides form element and display message that the messsage has been processed-->
                     <script type="text/javascript">
                         var submitted = false;
                         document.getElementById('gform').addEventListener('submit', function(e) {
                             submitted = true;
                             var formElements = this.elements;
                             for (var i = 0; i < formElements.length; i++) {
-                                formElements[i].style.display = 'none'; // Hide form elements
+                                formElements[i].style.display = 'none'; 
                             }
-                            this.insertAdjacentHTML('afterbegin', 'Your submission has been processed...');
+                            this.insertAdjacentHTML('afterbegin', 'Your form has been submitted');
                         });
                     </script>
                 </div>
