@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Organize Files by Type</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .drop-zone {
+            border: 2px dashed #28a745;
+            border-radius: 8px;
+            padding: 40px;
+            text-align: center;
+            color: #888;
+            margin-bottom: 30px;
+        }
+        .file-category {
+            margin-bottom: 20px;
+        }
+        .file-category h5 {
+            margin-bottom: 10px;
+        }
+        .file-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        .file-list li {
+            background: #f8f9fa;
+            margin-bottom: 5px;
+            padding: 8px 12px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container pt-5">
+        <h2>Organize Files by Type</h2>
+        <div class="drop-zone" id="drop-zone">
+            Drag and drop files here to organize them by type.
+        </div>
+        <div id="organized-files"></div>
+        <a href="index.html" class="btn btn-secondary mt-3">Back to Portfolio</a>
+    </div>
+    <script>
+        // Global error handler
+        window.onerror = function(message, source, lineno, colno, error) {
+            let errorDiv = document.getElementById('global-error');
+            if (!errorDiv) {
+                errorDiv = document.createElement('div');
+                errorDiv.id = 'global-error';
+                errorDiv.style.position = 'fixed';
+                errorDiv.style.bottom = '0';
+                errorDiv.style.left = '0';
+                errorDiv.style.width = '100%';
+                errorDiv.style.background = '#dc3545';
+                errorDiv.style.color = '#fff';
+                errorDiv.style.padding = '10px';
+                errorDiv.style.zIndex = '9999';
+                errorDiv.style.textAlign = 'center';
+                document.body.appendChild(errorDiv);
+            }
+            errorDiv.textContent = "An unexpected error occurred. Please refresh the page or try again later.";
+            return false;
+        };
+
+        try {
+            // Categorize files by extension
+            function getCategory(ext) {
+                const map = {
+                    'Images': ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'svg'],
+                    'Documents': ['pdf', 'doc', 'docx', 'txt', 'odt'],
+                    'Spreadsheets': ['xls', 'xlsx', 'csv', 'ods'],
+                    'Presentations': ['ppt', 'pptx', 'odp'],
+                    'Archives': ['zip', 'rar', '7z', 'tar', 'gz'],
+                    'Code': ['js', 'py', 'java', 'cpp', 'c', 'cs', 'html', 'css', 'ts', 'json'],
+                    'Other': []
+                };
+                ext = ext.toLowerCase();
+                for (const [cat, exts] of Object.entries(map)) {
+                    if (exts.includes(ext)) return cat;
+                }
+                return 'Other';
+            }
+
+            document.getElementById('drop-zone').addEventListener('dragover', function(e) {
+                e.preventDefault();
+                this.style.background = '#e9fbe7';
+            });
+
+            document.getElementById('drop-zone').addEventListener('dragleave', function(e) {
+                this.style.background = '';
+            });
+
+            document.getElementById('drop-zone').addEventListener('drop', function(e) {
+                e.preventDefault();
+                this.style.background = '';
+                const files = Array.from(e.dataTransfer.files);
+                const categorized = {};
+                files.forEach(file => {
+                    const ext = file.name.split('.').pop();
+                    const cat = getCategory(ext);
+                    if (!categorized[cat]) categorized[cat] = [];
+                    categorized[cat].push(file.name);
+                });
+
+                const container = document.getElementById('organized-files');
+                container.innerHTML = '';
+                Object.keys(categorized).forEach(cat => {
+                    const div = document.createElement('div');
+                    div.className = 'file-category';
+                    div.innerHTML = `<h5>${cat}</h5><ul class="file-list">${categorized[cat].map(f => `<li>${f}</li>`).join('')}</ul>`;
+                    container.appendChild(div);
+                });
+            });
+        } catch (e) {
+            window.onerror(e.message, '', '', '', e);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hangman Game</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .hangman-word { font-size: 2rem; letter-spacing: 0.5em; }
+        .hangman-letters button { margin: 2px; }
+        .hangman-status { margin-top: 1em; }
+    </style>
+</head>
+<body>
+    <div class="container pt-5">
+        <h2>Hangman Game</h2>
+        <div id="hangman-game">
+            <div class="hangman-word" id="hangman-word"></div>
+            <div class="hangman-letters" id="hangman-letters"></div>
+            <div class="hangman-status" id="hangman-status"></div>
+            <button class="btn btn-success mt-3" onclick="startGame()">Restart</button>
+        </div>
+        <a href="index.html" class="btn btn-secondary mt-3">Back to Portfolio</a>
+    </div>
+    <script>
+        // Global error handler
+        window.onerror = function(message, source, lineno, colno, error) {
+            let errorDiv = document.getElementById('global-error');
+            if (!errorDiv) {
+                errorDiv = document.createElement('div');
+                errorDiv.id = 'global-error';
+                errorDiv.style.position = 'fixed';
+                errorDiv.style.bottom = '0';
+                errorDiv.style.left = '0';
+                errorDiv.style.width = '100%';
+                errorDiv.style.background = '#dc3545';
+                errorDiv.style.color = '#fff';
+                errorDiv.style.padding = '10px';
+                errorDiv.style.zIndex = '9999';
+                errorDiv.style.textAlign = 'center';
+                document.body.appendChild(errorDiv);
+            }
+            errorDiv.textContent = "An unexpected error occurred. Please refresh the page or try again later.";
+            return false;
+        };
+
+        try {
+            const words = ["javascript", "portfolio", "hangman", "developer", "computer"];
+            let selectedWord = "";
+            let guessed = [];
+            let wrong = 0;
+            const maxWrong = 6;
+
+            function startGame() {
+                selectedWord = words[Math.floor(Math.random() * words.length)];
+                guessed = [];
+                wrong = 0;
+                updateDisplay();
+            }
+
+            function updateDisplay() {
+                const wordDisplay = selectedWord.split('').map(l => guessed.includes(l) ? l : "_").join(' ');
+                document.getElementById('hangman-word').textContent = wordDisplay;
+
+                let lettersHtml = '';
+                for (let i = 97; i <= 122; i++) {
+                    const letter = String.fromCharCode(i);
+                    lettersHtml += `<button class="btn btn-sm btn-outline-dark" ${guessed.includes(letter) || isGameOver() ? 'disabled' : ''} onclick="guess('${letter}')">${letter}</button>`;
+                }
+                document.getElementById('hangman-letters').innerHTML = lettersHtml;
+
+                let status = `Wrong guesses: ${wrong} / ${maxWrong}`;
+                if (isGameOver()) {
+                    status += selectedWord.split('').every(l => guessed.includes(l))
+                        ? " - You Win!"
+                        : ` - Game Over! The word was "${selectedWord}".`;
+                }
+                document.getElementById('hangman-status').textContent = status;
+            }
+
+            function guess(letter) {
+                if (!guessed.includes(letter)) {
+                    guessed.push(letter);
+                    if (!selectedWord.includes(letter)) wrong++;
+                }
+                updateDisplay();
+            }
+
+            function isGameOver() {
+                return wrong >= maxWrong || selectedWord.split('').every(l => guessed.includes(l));
+            }
+
+            startGame();
+            window.guess = guess;
+            window.startGame = startGame;
+        } catch (e) {
+            window.onerror(e.message, '', '', '', e);
+        }
+    </script>
+</body>
+</html>

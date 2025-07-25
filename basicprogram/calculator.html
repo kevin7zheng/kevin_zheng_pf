@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Command-Line Calculator</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .cli-calc-container {
+            background: #222;
+            color: #0f0;
+            font-family: monospace;
+            padding: 2em;
+            border-radius: 8px;
+            max-width: 500px;
+            margin: 2em auto;
+        }
+        .cli-calc-input {
+            width: 100%;
+            background: #111;
+            color: #0f0;
+            border: none;
+            padding: 0.5em;
+            font-size: 1.1em;
+        }
+        .cli-calc-output {
+            margin-top: 1em;
+            min-height: 2em;
+        }
+    </style>
+</head>
+<body>
+    <div class="cli-calc-container">
+        <h2>Command-Line Calculator</h2>
+        <div>
+            <label for="cli-input">Enter expression (e.g., <code>2+2*3</code>):</label>
+            <input id="cli-input" class="cli-calc-input" autocomplete="off" autofocus>
+        </div>
+        <div class="cli-calc-output" id="cli-output"></div>
+        <a href="index.html" class="btn btn-secondary mt-3">Back to Portfolio</a>
+    </div>
+    <script>
+        // Global error handler
+        window.onerror = function(message, source, lineno, colno, error) {
+            let errorDiv = document.getElementById('global-error');
+            if (!errorDiv) {
+                errorDiv = document.createElement('div');
+                errorDiv.id = 'global-error';
+                errorDiv.style.position = 'fixed';
+                errorDiv.style.bottom = '0';
+                errorDiv.style.left = '0';
+                errorDiv.style.width = '100%';
+                errorDiv.style.background = '#dc3545';
+                errorDiv.style.color = '#fff';
+                errorDiv.style.padding = '10px';
+                errorDiv.style.zIndex = '9999';
+                errorDiv.style.textAlign = 'center';
+                document.body.appendChild(errorDiv);
+            }
+            errorDiv.textContent = "An unexpected error occurred. Please refresh the page or try again later.";
+            return false;
+        };
+
+        try {
+            const input = document.getElementById('cli-input');
+            const output = document.getElementById('cli-output');
+            input.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    try {
+                        // Evaluate only safe math expressions
+                        const expr = input.value.replace(/[^-()\d/*+.]/g, '');
+                        if (expr.trim() === "") {
+                            output.textContent = "Please enter an expression.";
+                        } else {
+                            // eslint-disable-next-line no-eval
+                            const result = eval(expr);
+                            output.textContent = "> " + expr + " = " + result;
+                        }
+                    } catch {
+                        output.textContent = "Invalid expression.";
+                    }
+                    input.value = "";
+                }
+            });
+        } catch (e) {
+            window.onerror(e.message, '', '', '', e);
+        }
+    </script>
+</body>
+</html>
