@@ -4,27 +4,71 @@
     <meta charset="UTF-8">
     <title>Command-Line Calculator</title>
     <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
+        body {
+            background: #181a1b;
+            color: #f1f1f1;
+            font-family: 'Segoe UI', Arial, monospace;
+            margin: 0;
+        }
         .cli-calc-container {
             background: #222;
-            color: #0f0;
+            color: #fff;
             font-family: monospace;
-            padding: 2em;
-            border-radius: 8px;
-            max-width: 500px;
+            padding: 2em 1em;
+            border-radius: 12px;
+            max-width: 400px;
             margin: 2em auto;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.3);
+        }
+        h2 {
+            color: #fff;
+            text-align: center;
+            margin-bottom: 1.5em;
         }
         .cli-calc-input {
+            display: block;
             width: 100%;
-            background: #111;
-            color: #0f0;
+            max-width: 100%;
+            box-sizing: border-box;
+            background: #333;
+            color: #fff;
             border: none;
-            padding: 0.5em;
+            padding: 0.7em;
             font-size: 1.1em;
+            border-radius: 6px;
+            margin-top: 0.5em;
         }
         .cli-calc-output {
             margin-top: 1em;
             min-height: 2em;
+            background: #232323;
+            color: #eee;
+            border-radius: 6px;
+            padding: 0.7em;
+        }
+        .btn-secondary {
+            background: #333;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 0.7em 1.2em;
+            margin-top: 1em;
+        }
+        .btn-secondary:hover {
+            background: #444;
+        }
+        @media (max-width: 500px) {
+            .cli-calc-container {
+                padding: 1em 0.5em;
+            }
+            h2 {
+                font-size: 1.3em;
+            }
+            .cli-calc-input {
+                font-size: 1em;
+            }
         }
     </style>
 </head>

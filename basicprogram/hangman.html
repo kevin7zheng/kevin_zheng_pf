@@ -4,10 +4,76 @@
     <meta charset="UTF-8">
     <title>Hangman Game</title>
     <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
-        .hangman-word { font-size: 2rem; letter-spacing: 0.5em; }
-        .hangman-letters button { margin: 2px; }
-        .hangman-status { margin-top: 1em; }
+        body {
+            background: #181a1b;
+            color: #f1f1f1;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+        }
+        .container {
+            max-width: 400px;
+            margin: 2em auto;
+            background: #222;
+            border-radius: 12px;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.3);
+            padding: 2em 1em;
+        }
+        h2 {
+            color: #fff;
+            text-align: center;
+            margin-bottom: 1.5em;
+        }
+        .hangman-word {
+            font-size: 2rem;
+            letter-spacing: 0.5em;
+            color: #eee;
+            background: #333;
+            border-radius: 6px;
+            padding: 0.5em 0.2em;
+            margin-bottom: 1em;
+        }
+        .hangman-letters button {
+            margin: 2px;
+            background: #444;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 0.5em 0.7em;
+            font-size: 1em;
+            transition: background 0.2s;
+        }
+        .hangman-letters button:disabled {
+            background: #222;
+            color: #888;
+        }
+        .hangman-status {
+            margin-top: 1em;
+            color: #ccc;
+        }
+        .btn-success, .btn-secondary {
+            background: #333;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 0.7em 1.2em;
+            margin-top: 1em;
+        }
+        .btn-success:hover, .btn-secondary:hover {
+            background: #444;
+        }
+        @media (max-width: 500px) {
+            .container {
+                padding: 1em 0.5em;
+            }
+            h2 {
+                font-size: 1.3em;
+            }
+            .hangman-word {
+                font-size: 1.2em;
+            }
+        }
     </style>
 </head>
 <body>

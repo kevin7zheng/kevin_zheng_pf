@@ -4,30 +4,70 @@
     <meta charset="UTF-8">
     <title>Organize Files by Type</title>
     <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
-        .drop-zone {
-            border: 2px dashed #28a745;
-            border-radius: 8px;
-            padding: 40px;
+        body {
+            background: #181a1b;
+            color: #f1f1f1;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 2em auto;
+            background: #222;
+            border-radius: 12px;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.3);
+            padding: 2em 1em;
+        }
+        h2 {
+            color: #fff;
             text-align: center;
-            color: #888;
-            margin-bottom: 30px;
+            margin-bottom: 1.5em;
+        }
+        .drop-zone {
+            border: 2px dashed #555;
+            border-radius: 8px;
+            padding: 2em;
+            text-align: center;
+            color: #bbb;
+            margin-bottom: 2em;
+            background: #232323;
+            transition: border-color 0.2s;
+        }
+        .drop-zone.dragover {
+            border-color: #fff;
+            color: #fff;
         }
         .file-category {
-            margin-bottom: 20px;
+            margin-bottom: 1.5em;
         }
         .file-category h5 {
-            margin-bottom: 10px;
+            margin-bottom: 0.5em;
+            color: #ccc;
         }
         .file-list {
             list-style: none;
             padding-left: 0;
         }
         .file-list li {
-            background: #f8f9fa;
-            margin-bottom: 5px;
-            padding: 8px 12px;
-            border-radius: 4px;
+            background: #333;
+            margin-bottom: 6px;
+            padding: 10px 14px;
+            border-radius: 6px;
+            color: #eee;
+            font-size: 1em;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 1em 0.5em;
+            }
+            h2 {
+                font-size: 1.5em;
+            }
+            .drop-zone {
+                padding: 1em;
+            }
         }
     </style>
 </head>
